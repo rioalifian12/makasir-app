@@ -8,40 +8,40 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  transactions Transaction[]
+  id            String        @id @default(uuid())
+  name          String
+  email         String        @unique
+  password      String
+  createdAt     DateTime      @default(now())
+  transactions  Transaction[]
 }
 
 model Product {
-  id        String   @id @default(uuid())
-  name      String
-  price     Float
-  stock     Int
-  createdAt DateTime @default(now())
-  transactionItems TransactionItem[]
+  id               String             @id @default(uuid())
+  name             String
+  price            Float
+  stock            Int
+  createdAt        DateTime           @default(now())
+  transactionItems TransactionItem[] 
 }
 
 model Transaction {
-  id        String   @id @default(uuid())
-  userId    String
-  createdAt DateTime @default(now())
-  total     Float
+  id            String             @id @default(uuid())
+  userId        String
+  createdAt     DateTime           @default(now())
+  total         Float
 
-  user      User      @relation(fields: [userId], references: [id])
-  items     TransactionItem[]
+  user          User               @relation(fields: [userId], references: [id])
+  items         TransactionItem[]
 }
 
 model TransactionItem {
-  id            String   @id @default(uuid())
-  transactionId String
-  productId     String
-  quantity      Int
-  subtotal      Float
+  id             String      @id @default(uuid())
+  transactionId  String
+  productId      String
+  quantity       Int
+  subtotal       Float
 
-  transaction Transaction @relation(fields: [transactionId], references: [id])
-  product     Product     @relation(fields: [productId], references: [id])
+  transaction    Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  product        Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
