@@ -8,7 +8,7 @@ export default function LogoutButton() {
     <Button
       className="cursor-pointer"
       variant="destructive"
-      onClick={() => signOut()}
+      onClick={() => signOut({ callbackUrl: "/" })}
     >
       Logout
     </Button>
