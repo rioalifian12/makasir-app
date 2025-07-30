@@ -1,16 +1,11 @@
-// app/api/products/[id]/route.ts
-
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-type RouteContext = {
-  params: {
-    id: string;
-  };
-};
-
-export async function PUT(req: NextRequest, context: RouteContext) {
-  const { id } = context.params;
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
   const body = await req.json();
   const { name, price, stock } = body;
 
@@ -27,14 +22,17 @@ export async function PUT(req: NextRequest, context: RouteContext) {
     return NextResponse.json(updated);
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to update product" + error },
+      { error: "Failed to update product: " + error },
       { status: 500 }
     );
   }
 }
 
-export async function DELETE(req: NextRequest, context: RouteContext) {
-  const { id } = context.params;
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
 
   try {
     await prisma.product.delete({
@@ -44,7 +42,7 @@ export async function DELETE(req: NextRequest, context: RouteContext) {
     return NextResponse.json({ message: "Product deleted" });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to delete product" + error },
+      { error: "Failed to delete product: " + error },
       { status: 500 }
     );
   }

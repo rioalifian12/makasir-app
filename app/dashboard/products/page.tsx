@@ -1,5 +1,6 @@
 import { getProducts } from "@/lib/products";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
 export default async function ProductPage() {
@@ -7,20 +8,20 @@ export default async function ProductPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold tracking-tight">Products</h2>
-        <Link href="/dashboard/products/create">
-          <Button
-            className="cursor-pointer bg-emerald-500 hover:bg-emerald-600"
-            size="sm"
-            variant="default"
-          >
-            Add Product
-          </Button>
-        </Link>
-      </div>
+      <h2 className="mb-4 text-lg font-medium">Products</h2>
+      <Separator className="mb-6" />
 
-      <div className="overflow-x-auto border rounded-lg">
+      <Link href="/dashboard/products/create">
+        <Button
+          className="cursor-pointer bg-emerald-500 hover:bg-emerald-600"
+          size="sm"
+          variant="default"
+        >
+          Add Product
+        </Button>
+      </Link>
+
+      <div className="mt-4 overflow-x-auto border rounded-lg">
         {products.length === 0 ? (
           <p className="p-4 text-center text-muted-foreground">
             No products available.
